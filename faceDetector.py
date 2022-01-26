@@ -13,17 +13,23 @@ grayScaleImg = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 faceCoords = trainedFaceData.detectMultiScale(grayScaleImg)
 
 # Print Coordinates ([upperleft coord, (width,height)])
-print(faceCoords)
+# print(faceCoords)
 
+# Set up coords to be used
 startPoint = (faceCoords[0][0],faceCoords[0][1])
 endPoint = (faceCoords[0][0]+faceCoords[0][2],faceCoords[0][1]+faceCoords[0][3])
+
+# Set box color
 boxColor = (0, 255, 0)
 
+# Box side width
+boxWidth = 2
+
 # Draw rectangles around the faces using coords
-cv2.rectangle(img, startPoint, endPoint, boxColor, 2)
+cv2.rectangle(img, startPoint, endPoint, boxColor, boxWidth)
 
 # Show sample image
 cv2.imshow('Face Detector', img)
 cv2.waitKey()
 
-print("my Face")
+print("Face has been detected in image")
