@@ -3,9 +3,6 @@ import cv2
 # This is pre-trained data that is being loaded from opencv
 trainedFaceData = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 
-# # Image sample to detect face
-# img = cv2.imread('4faceGroup.jpg')
-
 # Take in webcam video with cv2
 webcam = cv2.VideoCapture(0)
 
@@ -21,15 +18,11 @@ while True:
     # Detect faces
     faceCoords = trainedFaceData.detectMultiScale(grayScaleImg)
 
-    # # Print Coordinates ([upperleft coord, (width,height)])
-    # print(faceCoords, "\n")
-
     for x in faceCoords:
         (startX, startY, width, height) = x
         startPoint = (startX, startY)
         endPoint = (startX + width, startY + height)
-        # print("Starting Point:", startPoint,"\n"
-        # "End point:",endPoint,"\n")
+
         # Set box color
         boxColor = (0, 255, 0)
 
@@ -38,9 +31,19 @@ while True:
 
         # Draw rectangles around the faces using coords
         cv2.rectangle(capturedFrame, startPoint, endPoint, boxColor, boxWidth)
-        # Show sample frame
-        cv2.imshow('Face Detector', capturedFrame)
-        cv2.waitKey(1)
+    
+    # Show each frame from webcam
+    cv2.imshow('Face Detector', capturedFrame)
+    
+    # This is used to choose how long each frame is shown for in milliseconds
+    key = cv2.waitKey(1)
+
+    # Pressin lowercase b will exit the loop and end the program
+    if key == 98:
+        break
+
+# Releases the the webcam
+webcam.release()
 
 
 """
